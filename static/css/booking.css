@@ -1,0 +1,26 @@
+body{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.cont{
+    margin:20px auto;
+    border-radius:12px;
+    padding: 20px;
+	max-width: 650px;
+	background: rgb(243, 167, 117);
+	border: 5px solid mediumseagreen;
+	box-shadow:5px 5px 5px mediumseagreen;
+	color: #fff;
+}
+
+.mb-3 label { 
+    font-size: 1.3rem;
+}
+
+.mb-3 .form-text{
+    font-size: 1rem;
+    color:#fff;
+}
