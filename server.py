@@ -60,6 +60,45 @@ def signup_check():
         conn.close()
         return redirect(url_for('login_signup', v="c"))
 
+@app.route('/booking')
+def booking():
+    return render_template('booking.html')
+
+@app.route('/tables')
+def tables():
+    with open("seats.txt","r") as f:
+        k = f.read()
+    k = k.split(" ")
+    tot = ["A1", "A2", "A3", "A4", "B1", "B2", "C1", "C2", "C3", "C4", "C5","C6", "D1", "D2", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8","F1", "F2", "F3", "F4"]
+    na_seats = list(set(tot)-set(k))
+    av_seats = list(set(tot)-set(na_seats))
+    na_seats = ", ".join(na_seats)
+    av_seats = ", ".join(av_seats)
+    return render_template('tables.html', data=[na_seats,av_seats])
+
+@app.route('/check_tables', methods=['POST'])
+def check_tables():
+    with open("seats.txt","r") as f:
+        k = f.read()
+    k = k.split(" ")
+    name = request.form['name']
+    email = request.form['email']
+    phone = request.form['phone']
+    date = request.form['date']
+    time = request.form['time']
+    ids = request.form['guest_ids']
+    ids = ids.split(" ")
+    k = k[:len(ids)]
+    flag=False
+    j=k[0][0]
+    for i in k:
+        if (i[0]!=j):
+            flag=True
+    k = ", ".join(k)
+    ids = ", ".join(ids)
+    info = [name,email,phone,date,time,ids,k,flag]
+    return render_template("tables_info.html", data=info)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

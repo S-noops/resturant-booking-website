@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Tables Info Page</title>
+  </head>
+  <body>
+    <div class="container my-5">
+        <form action="/confirmation" method="post">
+            <input type="text" class="form-control" id="name" name="name" value="{{data[0]}}" readonly>
+            <input type="email" class="form-control" id="email" name="email" value="{{data[1]}}" readonly>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{data[2]}}" readonly>
+            <input type="text" class="form-control" id="date" name="date" value="{{data[3]}}" readonly>
+            <input type="text" class="form-control" id="time" name="time" value="{{data[4]}}" readonly>
+            <input type="text" class="form-control" id="guest_ids" name="guest_ids" value="{{data[5]}}" readonly>
+            <h1>Chosen tables for you are:</h1>
+            <textarea class="form-control mt-4 mb-4" name="seats" id="seats" rows="4" readonly>The seats that we choose for you are: {{data[6]}}.{% if data[7] %} You have to combine tables.{% endif %}</textarea>
+            <button type="submit" class="btn btn-primary">Confirm Order</button>
+            <button type="submit" class="btn btn-success">SignUp</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
