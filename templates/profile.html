@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Profile Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">Resturant Booking System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul id="main_navitems" class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/booking">Booking Page</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tables">Tables Overview</a>
+            </li>
+          </ul>
+          <div class="d-flex" id="user-holder">
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container my-5">
+        <h1 class="text-center">Your Profile</h1>
+        <form action="/update_details" method="post">
+            <input type="email" name="email" class="form-control" value="{{info[6]}}" style="display:none;">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="{{info[0]}}" id="name" >
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Mailing Address</label>
+                <textarea class="form-control" name="mailing_address" id="mailing_address" rows="2">{{info[1]}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Billing Address</label>
+                <textarea class="form-control" name="billing_address" id="billing_address" rows="2">{{info[2]}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="c_id" class="form-label">Diner ID</label>
+                <input type="text" value="{{info[4]}}" class="form-control" name="c_id" id="c_id" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="points" class="form-label">Earned Points</label>
+                <input type="number" class="form-control" name="points" id="points" value="{{info[5]}}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="pay" class="form-label">Method of Payment</label>
+                <select id="pay" name="pay" class="form-select">
+                <option value="" {% if info[3]=="" %} selected {% endif %}></option>
+                <option value="Cash" {% if info[3]=="Cash" %} selected {% endif %}>Cash</option>
+                <option value="Credit" {% if info[3]=="Credit" %} selected {% endif %}>Credit</option>
+                <option value="Cheque" {% if info[3]=="Cheque" %} selected {% endif %}>Cheque</option>
+                </select>
+            </div>
+            <button type="submit" id="submit_btn" class="btn btn-success">Update</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+      var email = sessionStorage.getItem("email");
+      if (email === null) {
+        document.getElementById("user-holder").innerHTML = `
+        <a href="/"><button type="button" class="btn btn-secondary">Signup/Login</button></a>
+        `;
+        document.getElementById("submit_btn").style.display = "none";
+      } else {
+        document.getElementById("main_navitems").innerHTML = document.getElementById("main_navitems").innerHTML+`<li class='nav-item'><a class='nav-link active' href='/profile/${email}'>Your Profile</a></li>`
+        document.getElementById("user-holder").innerHTML = `
+        <h6 style="color:white;" class="nav-link">${email}</h6>&nbsp;<a href="/"><button type="button" class="btn btn-danger">Logout</button></a>
+        `;
+        document.getElementById("signup_btn").style.display = "none";
+      }
+    </script>
+  </body>
+</html>
